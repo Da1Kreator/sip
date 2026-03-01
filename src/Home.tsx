@@ -1,3 +1,4 @@
+import Premium from '@/screens/Premium';
 import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import { CameraView, useCameraPermissions } from 'expo-camera';
@@ -25,7 +26,14 @@ type Message = {
   text: string;
 };
 
-type Screen = 'intro' | 'how' | 'camera' | 'review' | 'reading' | 'history';
+type Screen =
+  | 'intro'
+  | 'how'
+  | 'camera'
+  | 'review'
+  | 'reading'
+  | 'history'
+  | 'premium';
 
 export default function Home() {
   const cameraRef = useRef<any>(null);
@@ -241,6 +249,10 @@ export default function Home() {
     );
   }
 
+  if (screen === 'premium') {
+  return <Premium />;
+}
+
   if (screen === 'review') {
     return (
       <Review
@@ -281,7 +293,7 @@ return (
         position: 'absolute',
         left: 0,
         right: 0,
-        bottom: 48, // 🔒 LOCKED HEIGHT (matches Review + Reading)
+        bottom: 48,
         paddingHorizontal: 20,
         paddingTop: 14,
         paddingBottom: 16,
@@ -346,6 +358,20 @@ return (
         }}
       >
         <Text style={{ color: '#9CA3AF' }}>View past readings</Text>
+      </Pressable>
+
+      {/* 🔥 NEW PREMIUM BUTTON */}
+      <Pressable
+        onPress={() => setScreen('premium')}
+        style={{
+          marginTop: 10,
+          paddingVertical: 10,
+          alignItems: 'center',
+        }}
+      >
+        <Text style={{ color: '#C6A55C', fontWeight: '600' }}>
+          Upgrade to Premium
+        </Text>
       </Pressable>
     </View>
   </View>
